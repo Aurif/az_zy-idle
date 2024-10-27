@@ -3,6 +3,7 @@ import random
 import sys
 from typing import Sequence, Mapping, Any, Union
 import torch
+import base64
 
 
 import json
@@ -175,7 +176,8 @@ def main():
                 filename_prefix=f"rune_{args.uuid}_{rune}", images=get_value_at_index(vaedecode_8, 0)
             )
 
-        for rune in json.loads(args.runes):
+        runes = json.loads(base64.b64decode(args.runes.encode("ascii")).decode("ascii"))
+        for rune in runes:
             generate_rune(rune)
 
 
