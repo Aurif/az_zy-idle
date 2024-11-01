@@ -3,3 +3,4 @@ openai~=1.52.2
 numpy~=2.1.2
 pillow~=11.0.0
 opencv_python~=4.10.0.84
+cairosvg~=2.7.1
