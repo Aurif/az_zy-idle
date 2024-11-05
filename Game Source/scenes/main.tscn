@@ -1,88 +1,69 @@
-[gd_scene load_steps=12 format=3 uid="uid://b7gew14r1gjhr"]
+[gd_scene load_steps=11 format=3 uid="uid://d1ohnll5k3vde"]
 
 [ext_resource type="Material" uid="uid://ty0e66eulwk2" path="res://shader/shader.tres" id="1_rta6o"]
+[ext_resource type="Texture2D" uid="uid://dxb6wr1r452am" path="res://art/white.png" id="2_4kcmi"]
 
 [sub_resource type="Gradient" id="Gradient_glu42"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_8ghn8"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bncvm"]
 gradient = SubResource("Gradient_glu42")
 
 [sub_resource type="Gradient" id="Gradient_nc0tx"]
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_6cj7s"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4qkdf"]
 gradient = SubResource("Gradient_nc0tx")
 
 [sub_resource type="Gradient" id="Gradient_umqsl"]
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_s2hs6"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3eu6g"]
 gradient = SubResource("Gradient_umqsl")
 
 [sub_resource type="Gradient" id="Gradient_d224h"]
 colors = PackedColorArray(1, 1, 1, 0.133333, 1, 1, 1, 0.133333)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_ifol7"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xt2cf"]
 gradient = SubResource("Gradient_d224h")
 
-[sub_resource type="Gradient" id="Gradient_pu2hy"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_6iywo"]
-gradient = SubResource("Gradient_pu2hy")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0, 0)
-
-[node name="Node2D" type="Node2D"]
-material = ExtResource("1_rta6o")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(960, 540)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
-
-[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer"]
-visible = false
-material = ExtResource("1_rta6o")
+[node name="Root" type="Control"]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 2.0
-offset_top = 1.0
-offset_right = 2.0
-offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(184, 208)
+[node name="Sprite2D1" type="Sprite2D" parent="."]
+position = Vector2(1038, 375)
 scale = Vector2(1.08203, 313.5)
-texture = SubResource("GradientTexture1D_8ghn8")
+texture = SubResource("GradientTexture1D_bncvm")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
-position = Vector2(154, 204)
+modulate = Color(0, 0, 0, 1)
+position = Vector2(1520, 516)
 scale = Vector2(3.85156, 3.45313)
-texture = SubResource("GradientTexture2D_6cj7s")
+texture = SubResource("GradientTexture2D_4qkdf")
 
 [node name="Sprite2D3" type="Sprite2D" parent="."]
-position = Vector2(132, 273)
+position = Vector2(894, 799)
 rotation = 1.5708
-scale = Vector2(0.339844, 90.5)
-texture = SubResource("GradientTexture1D_s2hs6")
+scale = Vector2(0.931085, 1064.26)
+texture = SubResource("GradientTexture1D_3eu6g")
 
 [node name="Sprite2D4" type="Sprite2D" parent="."]
-position = Vector2(150, 179)
+position = Vector2(1087, 448)
 scale = Vector2(0.984375, 7.25001)
-texture = SubResource("GradientTexture1D_ifol7")
+texture = SubResource("GradientTexture1D_xt2cf")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="Shader" type="TextureRect" parent="."]
 material = ExtResource("1_rta6o")
-offset_left = 12.0
-offset_top = 8.0
-offset_right = 563.0
-offset_bottom = 501.0
-texture = SubResource("GradientTexture2D_6iywo")
-stretch_mode = 6
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_4kcmi")
+metadata/_edit_lock_ = true
