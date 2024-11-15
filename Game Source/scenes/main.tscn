@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://d1ohnll5k3vde"]
+[gd_scene load_steps=20 format=3 uid="uid://d1ohnll5k3vde"]
 
 [ext_resource type="Material" uid="uid://ty0e66eulwk2" path="res://shaders/palette/shader.tres" id="1_rta6o"]
 [ext_resource type="Texture2D" uid="uid://dxb6wr1r452am" path="res://art/white.png" id="2_4kcmi"]
+[ext_resource type="Script" path="res://scenes/neuro_shader.gd" id="3_awa5m"]
 [ext_resource type="Shader" path="res://shaders/neuro/neuro.gdshader" id="3_e6iul"]
 [ext_resource type="Texture2D" uid="uid://v527uwrhfaec" path="res://art/neuro_demo.png" id="3_rn0ow"]
 
@@ -21,17 +22,17 @@ colors = PackedColorArray(0.3, 0.3, 0.3, 0, 0.3, 0.3, 0.3, 0.686275)
 gradient = SubResource("Gradient_jfmur")
 fill_to = Vector2(1, 0.348624)
 
-[sub_resource type="Gradient" id="Gradient_glu42"]
-colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_bncvm"]
-gradient = SubResource("Gradient_glu42")
-
 [sub_resource type="Gradient" id="Gradient_nc0tx"]
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_4qkdf"]
 gradient = SubResource("Gradient_nc0tx")
+
+[sub_resource type="Gradient" id="Gradient_glu42"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bncvm"]
+gradient = SubResource("Gradient_glu42")
 
 [sub_resource type="Gradient" id="Gradient_l1t4s"]
 offsets = PackedFloat32Array(0, 0.5)
@@ -50,7 +51,7 @@ shader_parameter/light_color_gradient = SubResource("GradientTexture1D_uc3tr")
 
 [sub_resource type="Gradient" id="Gradient_2ok5h"]
 offsets = PackedFloat32Array(0, 0.5)
-colors = PackedColorArray(1, 1, 1, 0.0627451, 1, 1, 1, 0)
+colors = PackedColorArray(1, 1, 1, 0.643137, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_2q1my"]
 gradient = SubResource("Gradient_2ok5h")
@@ -60,7 +61,7 @@ shader = ExtResource("3_e6iul")
 shader_parameter/light_direction = Vector2(1, 1)
 shader_parameter/shadow_length = 0.001
 shader_parameter/shadow_decay = 0.65
-shader_parameter/shadow_steps = 32
+shader_parameter/shadow_steps = 2
 shader_parameter/light_color_gradient = SubResource("GradientTexture1D_2q1my")
 
 [node name="Root" type="Control"]
@@ -101,13 +102,9 @@ grow_vertical = 2
 texture = SubResource("GradientTexture2D_421af")
 metadata/_edit_lock_ = true
 
-[node name="Sprite2D1" type="Sprite2D" parent="."]
-position = Vector2(1636, 786)
-scale = Vector2(1.08203, 313.5)
-texture = SubResource("GradientTexture1D_bncvm")
-
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 1)
+visibility_layer = 2
 position = Vector2(1647, 235)
 scale = Vector2(3.85156, 3.45313)
 texture = SubResource("GradientTexture2D_4qkdf")
@@ -123,6 +120,11 @@ grow_vertical = 2
 texture = ExtResource("2_4kcmi")
 metadata/_edit_lock_ = true
 
+[node name="Sprite2D1" type="Sprite2D" parent="."]
+position = Vector2(1407, 186)
+scale = Vector2(9.2959, 176.875)
+texture = SubResource("GradientTexture1D_bncvm")
+
 [node name="NeuroShader" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -130,6 +132,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("3_awa5m")
+metadata/_edit_lock_ = true
+
+[node name="Viewport" type="SubViewport" parent="NeuroShader"]
+canvas_cull_mask = 4293918722
+
+[node name="Camera" type="Camera2D" parent="NeuroShader/Viewport"]
 
 [node name="Shadows" type="TextureRect" parent="NeuroShader"]
 material = SubResource("ShaderMaterial_h2x5p")
