@@ -1,10 +1,11 @@
-[gd_scene load_steps=20 format=3 uid="uid://d1ohnll5k3vde"]
+[gd_scene load_steps=22 format=3 uid="uid://d1ohnll5k3vde"]
 
 [ext_resource type="Material" uid="uid://ty0e66eulwk2" path="res://shaders/palette/shader.tres" id="1_rta6o"]
-[ext_resource type="Texture2D" uid="uid://dxb6wr1r452am" path="res://art/white.png" id="2_4kcmi"]
-[ext_resource type="Script" path="res://scenes/neuro_shader.gd" id="3_awa5m"]
 [ext_resource type="Shader" path="res://shaders/neuro/neuro.gdshader" id="3_e6iul"]
-[ext_resource type="Texture2D" uid="uid://v527uwrhfaec" path="res://art/neuro_demo.png" id="3_rn0ow"]
+[ext_resource type="Script" path="res://shaders/_common/viewport.gd" id="4_4g1lp"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_0rkss"]
+viewport_path = NodePath("ColorShader/Viewport-L2")
 
 [sub_resource type="Gradient" id="Gradient_e7cc0"]
 interpolation_mode = 2
@@ -49,6 +50,9 @@ shader_parameter/shadow_decay = 0.85
 shader_parameter/shadow_steps = 32
 shader_parameter/light_color_gradient = SubResource("GradientTexture1D_uc3tr")
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_sj75x"]
+viewport_path = NodePath("NeuroShader/Viewport-L3")
+
 [sub_resource type="Gradient" id="Gradient_2ok5h"]
 offsets = PackedFloat32Array(0, 0.5)
 colors = PackedColorArray(1, 1, 1, 0.643137, 1, 1, 1, 0)
@@ -64,7 +68,14 @@ shader_parameter/shadow_decay = 0.65
 shader_parameter/shadow_steps = 2
 shader_parameter/light_color_gradient = SubResource("GradientTexture1D_2q1my")
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_ee53u"]
+viewport_path = NodePath("NeuroShader/Viewport-L3")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_8jsj3"]
+viewport_path = NodePath("PostShaderView/Viewport-L1")
+
 [node name="Root" type="Control"]
+visibility_layer = 1048575
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -73,7 +84,34 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_lock_ = true
 
+[node name="ColorShader" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Viewport-L2" type="SubViewport" parent="ColorShader"]
+debug_draw = 1
+canvas_cull_mask = 4293918722
+size = Vector2i(1920, 1080)
+render_target_update_mode = 3
+script = ExtResource("4_4g1lp")
+
+[node name="PaletteShader" type="TextureRect" parent="ColorShader"]
+material = ExtResource("1_rta6o")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_0rkss")
+metadata/_edit_lock_ = true
+
 [node name="Background" type="Control" parent="."]
+visibility_layer = 2
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -83,6 +121,7 @@ grow_vertical = 2
 metadata/_edit_lock_ = true
 
 [node name="VerticalGradient" type="TextureRect" parent="Background"]
+visibility_layer = 2
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -93,6 +132,7 @@ texture = SubResource("GradientTexture2D_knc4w")
 metadata/_edit_lock_ = true
 
 [node name="HorizontalGradient" type="TextureRect" parent="Background"]
+visibility_layer = 2
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -109,21 +149,18 @@ position = Vector2(1647, 235)
 scale = Vector2(3.85156, 3.45313)
 texture = SubResource("GradientTexture2D_4qkdf")
 
-[node name="PaletteShader" type="TextureRect" parent="."]
-material = ExtResource("1_rta6o")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_4kcmi")
-metadata/_edit_lock_ = true
-
 [node name="Sprite2D1" type="Sprite2D" parent="."]
-position = Vector2(1407, 186)
+visibility_layer = 6
+position = Vector2(1331, 606)
 scale = Vector2(9.2959, 176.875)
 texture = SubResource("GradientTexture1D_bncvm")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+visibility_layer = 2
+position = Vector2(1033, 188)
+scale = Vector2(6.72975, 4.6808)
+texture = SubResource("GradientTexture2D_4qkdf")
 
 [node name="NeuroShader" type="Control" parent="."]
 layout_mode = 1
@@ -132,13 +169,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("3_awa5m")
 metadata/_edit_lock_ = true
 
-[node name="Viewport" type="SubViewport" parent="NeuroShader"]
-canvas_cull_mask = 4293918722
-
-[node name="Camera" type="Camera2D" parent="NeuroShader/Viewport"]
+[node name="Viewport-L3" type="SubViewport" parent="NeuroShader"]
+transparent_bg = true
+debug_draw = 1
+canvas_cull_mask = 4293918724
+size = Vector2i(1920, 1080)
+render_target_update_mode = 3
+script = ExtResource("4_4g1lp")
 
 [node name="Shadows" type="TextureRect" parent="NeuroShader"]
 material = SubResource("ShaderMaterial_h2x5p")
@@ -146,13 +185,9 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 103.0
-offset_top = 25.0
-offset_right = -793.0
-offset_bottom = -31.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_rn0ow")
+texture = SubResource("ViewportTexture_sj75x")
 stretch_mode = 3
 
 [node name="Glare" type="TextureRect" parent="NeuroShader"]
@@ -161,11 +196,31 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 103.0
-offset_top = 25.0
-offset_right = -793.0
-offset_bottom = -31.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_rn0ow")
+texture = SubResource("ViewportTexture_ee53u")
 stretch_mode = 3
+
+[node name="PostShaderView" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Viewport-L1" type="SubViewport" parent="PostShaderView"]
+canvas_cull_mask = 4293918721
+size = Vector2i(1920, 1080)
+render_target_update_mode = 3
+script = ExtResource("4_4g1lp")
+
+[node name="TextureRect" type="TextureRect" parent="PostShaderView"]
+visibility_layer = 524288
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_8jsj3")
