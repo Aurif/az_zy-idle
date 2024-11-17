@@ -8,5 +8,4 @@ gradient = ExtResource("2_o5qsj")
 
 [resource]
 shader = ExtResource("1_cp50j")
-shader_parameter/mix_amount = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_h7h2g")
