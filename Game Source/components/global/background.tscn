@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3 uid="uid://djs0fotgv4q7p"]
+
+[sub_resource type="Gradient" id="Gradient_e7cc0"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.993506)
+colors = PackedColorArray(0.4, 0.4, 0.4, 1, 0.301961, 0.301961, 0.301961, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_knc4w"]
+gradient = SubResource("Gradient_e7cc0")
+use_hdr = true
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Gradient" id="Gradient_jfmur"]
+colors = PackedColorArray(0.3, 0.3, 0.3, 0, 0.3, 0.3, 0.3, 0.686275)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_421af"]
+gradient = SubResource("Gradient_jfmur")
+fill_to = Vector2(1, 0.348624)
+
+[node name="Background" type="Control"]
+visibility_layer = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="VerticalGradient" type="TextureRect" parent="."]
+visibility_layer = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_knc4w")
+metadata/_edit_lock_ = true
+
+[node name="HorizontalGradient" type="TextureRect" parent="."]
+visibility_layer = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_421af")
+metadata/_edit_lock_ = true
