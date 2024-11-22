@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://d1ohnll5k3vde"]
+[gd_scene load_steps=16 format=3 uid="uid://d1ohnll5k3vde"]
 
 [ext_resource type="PackedScene" uid="uid://djs0fotgv4q7p" path="res://components/global/background.tscn" id="1_bflx7"]
 [ext_resource type="Material" uid="uid://ty0e66eulwk2" path="res://shaders/palette/shader.tres" id="1_rta6o"]
 [ext_resource type="Shader" path="res://shaders/neuro/neuro.gdshader" id="3_e6iul"]
 [ext_resource type="Script" path="res://shaders/_common/viewport.gd" id="4_4g1lp"]
+[ext_resource type="Script" path="res://file_management/file_loader.gd" id="5_61bhp"]
 
 [sub_resource type="Gradient" id="Gradient_nc0tx"]
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
@@ -65,8 +66,8 @@ texture = SubResource("GradientTexture2D_4qkdf")
 
 [node name="Sprite2D1" type="Sprite2D" parent="."]
 visibility_layer = 4
-position = Vector2(795.062, 615.281)
-scale = Vector2(4.28858, 313.437)
+position = Vector2(388.5, 633)
+scale = Vector2(1.42578, 566)
 texture = SubResource("GradientTexture1D_bncvm")
 
 [node name="Sprite2D3" type="Sprite2D" parent="."]
@@ -83,6 +84,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
 
 [node name="Color" type="Control" parent="Shaders"]
 z_index = -1
@@ -150,3 +152,32 @@ grow_vertical = 2
 texture = SubResource("ViewportTexture_rvkyg")
 stretch_mode = 3
 metadata/_edit_lock_ = true
+
+[node name="Node2D" type="Node2D" parent="."]
+visibility_layer = 7
+script = ExtResource("5_61bhp")
+
+[node name="Sprite" type="Sprite2D" parent="Node2D"]
+modulate = Color(0.627451, 0.627451, 0.627451, 1)
+visibility_layer = 4
+position = Vector2(1226, 654)
+
+[node name="FileDialog" type="FileDialog" parent="Node2D"]
+title = "Open a File"
+initial_position = 2
+size = Vector2i(600, 400)
+ok_button_text = "Open"
+dialog_hide_on_ok = true
+file_mode = 0
+access = 2
+root_subfolder = "../"
+filters = PackedStringArray("*.zip ; ZIP Files")
+
+[node name="Button" type="Button" parent="Node2D"]
+offset_left = 177.0
+offset_top = 99.0
+offset_right = 406.0
+offset_bottom = 202.0
+
+[connection signal="file_selected" from="Node2D/FileDialog" to="Node2D" method="_on_file_dialog_file_selected"]
+[connection signal="pressed" from="Node2D/Button" to="Node2D" method="_on_button_pressed"]
