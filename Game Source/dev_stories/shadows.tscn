@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://vhf68adwj544"]
+[gd_scene load_steps=30 format=3 uid="uid://vhf68adwj544"]
 
 [ext_resource type="PackedScene" uid="uid://djs0fotgv4q7p" path="res://components/global/background.tscn" id="1_mb2ux"]
 [ext_resource type="Script" path="res://shaders/_common/viewport.gd" id="2_kk5a7"]
@@ -34,6 +34,20 @@ colors = PackedColorArray(0, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_duvym"]
 gradient = SubResource("Gradient_6hj33")
+
+[sub_resource type="Gradient" id="Gradient_5tgrt"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.627451, 0.627451, 0.627451, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vepxe"]
+gradient = SubResource("Gradient_5tgrt")
+
+[sub_resource type="Gradient" id="Gradient_wqj4y"]
+offsets = PackedFloat32Array(0.0060241)
+colors = PackedColorArray(0.376471, 0.376471, 0.376471, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jb832"]
+gradient = SubResource("Gradient_wqj4y")
 
 [sub_resource type="Gradient" id="Gradient_aejth"]
 offsets = PackedFloat32Array(0)
@@ -127,15 +141,27 @@ texture = SubResource("GradientTexture1D_beekr")
 
 [node name="Sprite2D4" type="Sprite2D" parent="."]
 visibility_layer = 4
-position = Vector2(966, 272.875)
-scale = Vector2(0.378906, 404.25)
+position = Vector2(925.25, 271.125)
+scale = Vector2(0.173828, 404.25)
 texture = SubResource("GradientTexture1D_beekr")
 
 [node name="Sprite2D5" type="Sprite2D" parent="."]
 visibility_layer = 4
-position = Vector2(970, 783)
-scale = Vector2(0.344483, 409.75)
+position = Vector2(931.453, 781.25)
+scale = Vector2(0.156617, 409.75)
 texture = SubResource("GradientTexture1D_duvym")
+
+[node name="Sprite2D6" type="Sprite2D" parent="."]
+visibility_layer = 4
+position = Vector2(1007.25, 270.125)
+scale = Vector2(0.173828, 404.25)
+texture = SubResource("GradientTexture1D_vepxe")
+
+[node name="Sprite2D7" type="Sprite2D" parent="."]
+visibility_layer = 4
+position = Vector2(1013.45, 780.25)
+scale = Vector2(0.156617, 409.75)
+texture = SubResource("GradientTexture1D_jb832")
 
 [node name="Node2D2" type="Node2D" parent="."]
 visibility_layer = 4
@@ -162,7 +188,7 @@ texture = SubResource("GradientTexture1D_3oijg")
 
 [node name="Sprite2D4" type="Sprite2D" parent="Node2D2"]
 visibility_layer = 4
-position = Vector2(495.531, 518.5)
+position = Vector2(495.531, 517.5)
 scale = Vector2(3.87085, 227)
 texture = SubResource("GradientTexture1D_duvym")
 

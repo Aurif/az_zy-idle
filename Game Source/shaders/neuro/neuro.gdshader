@@ -29,8 +29,8 @@ void fragment() {
     float total_diff_glare = 0.0;
     for(int i=0; i < shadow_steps; i++) {
         float fi = float(i);
-        float elevation_diff_shadow = max(elevation(TEXTURE, UV+light_dir*fi)-this_elevation, 0.0);
-        float elevation_diff_glare = max(elevation(TEXTURE, UV-light_dir*fi)-this_elevation, 0.0);
+        float elevation_diff_shadow = clamp(elevation(TEXTURE, UV+light_dir*fi)-this_elevation, 0.0, 0.125)*8.0;
+        float elevation_diff_glare = clamp(elevation(TEXTURE, UV-light_dir*fi)-this_elevation, 0.0, 0.125)*8.0;
 
         total_diff_shadow = max(total_diff_shadow, elevation_diff_shadow*exp(-fi / decay_factor));
         total_diff_glare = max(total_diff_glare, elevation_diff_glare*exp(-fi / decay_factor / glare_ratio));
@@ -38,5 +38,7 @@ void fragment() {
 
     float normalized_diff = (total_diff_glare - total_diff_shadow) / 2.0 + 0.5;
     vec4 target_color = texture(light_color_gradient, vec2(normalized_diff, 0.0));
-    COLOR = soft_light(texture(previous_texture, UV), target_color);
+    vec4 color_with_edges = soft_light(texture(previous_texture, UV), target_color);
+    vec4 depth_color = texture(light_color_gradient, vec2(this_elevation+0.5, 0.0)) * vec4(1, 1, 1, abs(this_elevation)*0.5);
+    COLOR = soft_light(color_with_edges, depth_color);
 }
