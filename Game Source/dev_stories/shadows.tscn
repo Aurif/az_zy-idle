@@ -28,12 +28,12 @@ gradient = SubResource("Gradient_28h7a")
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_beekr"]
 
-[sub_resource type="Gradient" id="Gradient_6hj33"]
+[sub_resource type="Gradient" id="Gradient_bkdik"]
 offsets = PackedFloat32Array(0)
 colors = PackedColorArray(0, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_duvym"]
-gradient = SubResource("Gradient_6hj33")
+gradient = SubResource("Gradient_bkdik")
 
 [sub_resource type="Gradient" id="Gradient_5tgrt"]
 offsets = PackedFloat32Array(0)
@@ -213,7 +213,7 @@ metadata/_edit_lock_ = true
 [node name="Viewport-L2" type="SubViewport" parent="Shaders/Color"]
 disable_3d = true
 canvas_cull_mask = 4293918722
-size = Vector2i(1920, 1080)
+size = Vector2i(2560, 1440)
 render_target_update_mode = 3
 script = ExtResource("2_kk5a7")
 
@@ -231,7 +231,7 @@ metadata/_edit_lock_ = true
 [node name="Viewport-L1" type="SubViewport" parent="Shaders"]
 disable_3d = true
 canvas_cull_mask = 4293918721
-size = Vector2i(1920, 1080)
+size = Vector2i(2560, 1440)
 render_target_update_mode = 3
 script = ExtResource("2_kk5a7")
 
@@ -250,7 +250,7 @@ disable_3d = true
 transparent_bg = true
 debug_draw = 1
 canvas_cull_mask = 4293918724
-size = Vector2i(1920, 1080)
+size = Vector2i(2560, 1440)
 render_target_update_mode = 3
 script = ExtResource("2_kk5a7")
 

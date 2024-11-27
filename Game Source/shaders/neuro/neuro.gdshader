@@ -12,7 +12,7 @@ uniform sampler2D previous_texture: repeat_disable, filter_linear_mipmap;
 
 float elevation(sampler2D tex, vec2 uv) {
     vec4 elev = texture(tex, uv);
-    float normalized_elevation = elev.r - 0.5;
+    float normalized_elevation = elev.g - 0.5;
     return normalized_elevation * elev.a;
 }
 
@@ -27,8 +27,8 @@ void fragment() {
 
     float total_diff_shadow = 0.0;
     float total_diff_glare = 0.0;
-    for(int i=0; i < shadow_steps; i++) {
-        float fi = float(i);
+    for(int i=0; i < shadow_steps*2; i++) {
+        float fi = float(i)/2.0;
         float elevation_diff_shadow = clamp(elevation(TEXTURE, UV+light_dir*fi)-this_elevation, 0.0, 0.125)*8.0;
         float elevation_diff_glare = clamp(elevation(TEXTURE, UV-light_dir*fi)-this_elevation, 0.0, 0.125)*8.0;
 

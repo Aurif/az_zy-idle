@@ -9,11 +9,10 @@ float random(vec2 uv) {
 }
 
 void fragment() {
-	vec4 input_color = texture(TEXTURE, UV);
-	float greyscale_value = dot(input_color.rgb, vec3(0.299, 0.587, 0.114));
-	float dithered_value = greyscale_value + random(UV)*precision;
-	vec3 sampled_color = texture(gradient, vec2(dithered_value, 0.0)).rgb;
+    vec4 input_color = texture(TEXTURE, UV);
+    float dithered_value = input_color.r + random(UV)*precision;
+    vec3 sampled_color = texture(gradient, vec2(dithered_value, 0.0)).rgb;
 
-	COLOR.rgb = sampled_color;
-	COLOR.a = input_color.a;
+    COLOR.rgb = sampled_color;
+    COLOR.a = input_color.a;
 }
