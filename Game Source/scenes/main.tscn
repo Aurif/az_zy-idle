@@ -1,25 +1,12 @@
-[gd_scene load_steps=19 format=3 uid="uid://d1ohnll5k3vde"]
+[gd_scene load_steps=14 format=3 uid="uid://d1ohnll5k3vde"]
 
 [ext_resource type="PackedScene" uid="uid://djs0fotgv4q7p" path="res://components/global/background.tscn" id="1_bflx7"]
 [ext_resource type="Material" uid="uid://ty0e66eulwk2" path="res://shaders/palette/shader.tres" id="1_rta6o"]
+[ext_resource type="PackedScene" uid="uid://b6lunocq0niar" path="res://components/molecules/text_input/text_input.tscn" id="2_v7gts"]
+[ext_resource type="PackedScene" uid="uid://k7ubk0eqt7fn" path="res://components/molecules/task_item/task_item.tscn" id="3_cawdn"]
 [ext_resource type="Shader" path="res://shaders/neuro/neuro.gdshader" id="3_e6iul"]
 [ext_resource type="Script" path="res://shaders/_common/viewport.gd" id="4_4g1lp"]
 [ext_resource type="Script" path="res://file_management/file_loader.gd" id="5_61bhp"]
-[ext_resource type="Texture2D" uid="uid://qo8p8qd1ix4y" path="res://art/shapes/triangle.png" id="6_5li1f"]
-[ext_resource type="Theme" uid="uid://b5yk5kdygure2" path="res://art/theme.tres" id="6_ckoed"]
-[ext_resource type="Script" path="res://components/molecules/text_input/background_color.gd" id="8_qgrw8"]
-
-[sub_resource type="Gradient" id="Gradient_nc0tx"]
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_4qkdf"]
-gradient = SubResource("Gradient_nc0tx")
-
-[sub_resource type="Gradient" id="Gradient_glu42"]
-colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_bncvm"]
-gradient = SubResource("Gradient_glu42")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ououm"]
 viewport_path = NodePath("Shaders/Color/Viewport-L2")
@@ -61,24 +48,37 @@ metadata/_edit_lock_ = true
 [node name="Background" parent="." instance=ExtResource("1_bflx7")]
 layout_mode = 1
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-modulate = Color(0, 0, 0, 1)
-position = Vector2(1605, 249)
-scale = Vector2(3.85156, 3.45313)
-texture = SubResource("GradientTexture2D_4qkdf")
+[node name="CenterContainer" type="CenterContainer" parent="."]
+visibility_layer = 7
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 32.0
+offset_bottom = 96.0
+grow_horizontal = 2
 
-[node name="Sprite2D1" type="Sprite2D" parent="."]
-visibility_layer = 4
-position = Vector2(388.5, 633)
-scale = Vector2(1.42578, 566)
-texture = SubResource("GradientTexture1D_bncvm")
+[node name="TextInput" parent="CenterContainer" instance=ExtResource("2_v7gts")]
+layout_mode = 2
 
-[node name="Sprite2D3" type="Sprite2D" parent="."]
-modulate = Color(0, 0, 0, 1)
-visibility_layer = 2
-position = Vector2(826, 221)
-scale = Vector2(-6.73, -2.38672)
-texture = SubResource("GradientTexture2D_4qkdf")
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+visibility_layer = 6
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 121.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="FlowContainer" type="FlowContainer" parent="VBoxContainer"]
+visibility_layer = 6
+layout_mode = 2
+alignment = 1
+last_wrap_alignment = 2
+
+[node name="TaskItem" parent="VBoxContainer/FlowContainer" instance=ExtResource("3_cawdn")]
+layout_mode = 2
 
 [node name="Shaders" type="Control" parent="."]
 layout_mode = 1
@@ -98,10 +98,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 metadata/_edit_lock_ = true
 
 [node name="Viewport-L2" type="SubViewport" parent="Shaders/Color"]
 disable_3d = true
+handle_input_locally = false
 canvas_cull_mask = 4293918722
 size = Vector2i(2560, 1440)
 render_target_update_mode = 3
@@ -115,11 +117,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = SubResource("ViewportTexture_ououm")
 metadata/_edit_lock_ = true
 
 [node name="Viewport-L1" type="SubViewport" parent="Shaders"]
 disable_3d = true
+handle_input_locally = false
 canvas_cull_mask = 4293918721
 size = Vector2i(2560, 1440)
 render_target_update_mode = 3
@@ -133,11 +137,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 metadata/_edit_lock_ = true
 
 [node name="Viewport-L3" type="SubViewport" parent="Shaders/Neuro"]
 disable_3d = true
 transparent_bg = true
+handle_input_locally = false
 debug_draw = 1
 canvas_cull_mask = 4293918724
 size = Vector2i(2560, 1440)
@@ -153,6 +159,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = SubResource("ViewportTexture_rvkyg")
 stretch_mode = 3
 metadata/_edit_lock_ = true
@@ -179,72 +186,10 @@ root_subfolder = "../"
 filters = PackedStringArray("*.zip ; ZIP Files")
 
 [node name="Button" type="Button" parent="Node2D"]
-offset_left = 177.0
-offset_top = 99.0
-offset_right = 406.0
-offset_bottom = 202.0
-
-[node name="CenterContainer" type="CenterContainer" parent="."]
-visibility_layer = 7
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 32.0
-offset_bottom = 96.0
-grow_horizontal = 2
-
-[node name="TextInput" type="PanelContainer" parent="CenterContainer"]
-visibility_layer = 7
-layout_mode = 2
-theme = ExtResource("6_ckoed")
-
-[node name="BackgroundIndent" type="NinePatchRect" parent="CenterContainer/TextInput"]
-self_modulate = Color(0.501961, 0.376471, 0.501961, 1)
-visibility_layer = 4
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-size_flags_vertical = 4
-texture = ExtResource("6_5li1f")
-patch_margin_left = 31
-patch_margin_right = 31
-axis_stretch_horizontal = 1
-
-[node name="BackgroundColor" type="NinePatchRect" parent="CenterContainer/TextInput"]
-self_modulate = Color(1, 0.501961, 0.501961, 0)
-visibility_layer = 2
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-size_flags_vertical = 4
-mouse_filter = 0
-texture = ExtResource("6_5li1f")
-patch_margin_left = 31
-patch_margin_right = 31
-axis_stretch_horizontal = 1
-script = ExtResource("8_qgrw8")
-
-[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/TextInput"]
-visibility_layer = 7
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 31
-theme_override_constants/margin_right = 31
-
-[node name="LineEdit" type="LineEdit" parent="CenterContainer/TextInput/MarginContainer"]
-modulate = Color(0.541176, 0.501961, 0.501961, 1)
-visibility_layer = 6
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-mouse_filter = 1
-theme = ExtResource("6_ckoed")
-alignment = 1
-expand_to_text_length = true
-flat = true
-caret_blink = true
+offset_left = 1871.0
+offset_top = -374.0
+offset_right = 1922.0
+offset_bottom = -323.0
 
 [connection signal="file_selected" from="Node2D/FileDialog" to="Node2D" method="_on_file_dialog_file_selected"]
 [connection signal="pressed" from="Node2D/Button" to="Node2D" method="_on_button_pressed"]
-[connection signal="mouse_entered" from="CenterContainer/TextInput/BackgroundColor" to="CenterContainer/TextInput/BackgroundColor" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="CenterContainer/TextInput/BackgroundColor" to="CenterContainer/TextInput/BackgroundColor" method="_on_mouse_exited"]
-[connection signal="focus_entered" from="CenterContainer/TextInput/MarginContainer/LineEdit" to="CenterContainer/TextInput/BackgroundColor" method="_on_focus_entered"]
-[connection signal="focus_exited" from="CenterContainer/TextInput/MarginContainer/LineEdit" to="CenterContainer/TextInput/BackgroundColor" method="_on_focus_exited"]

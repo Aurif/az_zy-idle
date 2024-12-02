@@ -1044,6 +1044,7 @@ corner_radius_bottom_left = 3
 corner_detail = 5
 
 [resource]
+Label/font_sizes/font_size = 22
 LineEdit/colors/caret_color = Color(0.95, 0.95, 0.95, 1)
 LineEdit/colors/clear_button_color = Color(0.875, 0.875, 0.875, 1)
 LineEdit/colors/clear_button_color_pressed = Color(1, 1, 1, 1)
@@ -1062,3 +1063,4 @@ LineEdit/styles/focus = SubResource("StyleBoxFlat_w704u")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_ytbsx")
 LineEdit/styles/read_only = SubResource("StyleBoxFlat_gal8r")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_iikuw")
+RichTextLabel/font_sizes/normal_font_size = 24

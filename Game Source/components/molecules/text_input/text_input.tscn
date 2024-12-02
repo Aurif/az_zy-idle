@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6lunocq0niar"]
+
+[ext_resource type="Theme" uid="uid://b5yk5kdygure2" path="res://art/theme.tres" id="1_1gm0b"]
+[ext_resource type="Texture2D" uid="uid://qo8p8qd1ix4y" path="res://art/shapes/triangle.png" id="2_cdgke"]
+[ext_resource type="Script" path="res://components/molecules/text_input/background_color.gd" id="3_tgtyo"]
+
+[node name="TextInput" type="PanelContainer"]
+visibility_layer = 7
+theme = ExtResource("1_1gm0b")
+
+[node name="BackgroundIndent" type="NinePatchRect" parent="."]
+self_modulate = Color(0.501961, 0.376471, 0.501961, 1)
+visibility_layer = 4
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("2_cdgke")
+patch_margin_left = 31
+patch_margin_right = 31
+axis_stretch_horizontal = 1
+
+[node name="BackgroundColor" type="NinePatchRect" parent="."]
+self_modulate = Color(1, 0.501961, 0.501961, 0)
+visibility_layer = 2
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 0
+texture = ExtResource("2_cdgke")
+patch_margin_left = 31
+patch_margin_right = 31
+axis_stretch_horizontal = 1
+script = ExtResource("3_tgtyo")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+visibility_layer = 7
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 31
+theme_override_constants/margin_right = 31
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer"]
+modulate = Color(0.541176, 0.501961, 0.501961, 1)
+visibility_layer = 6
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 1
+theme = ExtResource("1_1gm0b")
+alignment = 1
+expand_to_text_length = true
+flat = true
+caret_blink = true
+
+[connection signal="mouse_entered" from="BackgroundColor" to="BackgroundColor" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="BackgroundColor" to="BackgroundColor" method="_on_mouse_exited"]
+[connection signal="focus_entered" from="MarginContainer/LineEdit" to="BackgroundColor" method="_on_focus_entered"]
+[connection signal="focus_exited" from="MarginContainer/LineEdit" to="BackgroundColor" method="_on_focus_exited"]
