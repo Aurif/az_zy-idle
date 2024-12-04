@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://d1ohnll5k3vde"]
+[gd_scene load_steps=15 format=3 uid="uid://d1ohnll5k3vde"]
 
 [ext_resource type="PackedScene" uid="uid://djs0fotgv4q7p" path="res://components/global/background.tscn" id="1_bflx7"]
 [ext_resource type="Material" uid="uid://ty0e66eulwk2" path="res://shaders/palette/shader.tres" id="1_rta6o"]
 [ext_resource type="PackedScene" uid="uid://b6lunocq0niar" path="res://components/molecules/text_input/text_input.tscn" id="2_v7gts"]
 [ext_resource type="PackedScene" uid="uid://k7ubk0eqt7fn" path="res://components/molecules/task_item/task_item.tscn" id="3_cawdn"]
 [ext_resource type="Shader" path="res://shaders/neuro/neuro.gdshader" id="3_e6iul"]
+[ext_resource type="Script" path="res://components/molecules/task_list/task_list.gd" id="3_pjjlw"]
 [ext_resource type="Script" path="res://shaders/_common/viewport.gd" id="4_4g1lp"]
 [ext_resource type="Script" path="res://file_management/file_loader.gd" id="5_61bhp"]
 
@@ -60,7 +61,7 @@ grow_horizontal = 2
 [node name="TextInput" parent="CenterContainer" instance=ExtResource("2_v7gts")]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="TaskList" type="VBoxContainer" parent="." node_paths=PackedStringArray("input_field")]
 visibility_layer = 6
 layout_mode = 1
 anchors_preset = 15
@@ -70,14 +71,17 @@ offset_top = 121.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
+script = ExtResource("3_pjjlw")
+task_prefab = ExtResource("3_cawdn")
+input_field = NodePath("../CenterContainer/TextInput/MarginContainer/LineEdit")
 
-[node name="FlowContainer" type="FlowContainer" parent="VBoxContainer"]
+[node name="FlowContainer" type="FlowContainer" parent="TaskList"]
 visibility_layer = 6
 layout_mode = 2
 alignment = 1
 last_wrap_alignment = 2
 
-[node name="TaskItem" parent="VBoxContainer/FlowContainer" instance=ExtResource("3_cawdn")]
+[node name="TaskItem" parent="TaskList/FlowContainer" instance=ExtResource("3_cawdn")]
 layout_mode = 2
 
 [node name="Shaders" type="Control" parent="."]
@@ -191,5 +195,8 @@ offset_top = -374.0
 offset_right = 1922.0
 offset_bottom = -323.0
 
+[connection signal="text_submitted" from="CenterContainer/TextInput/MarginContainer/LineEdit" to="TaskList" method="_on_text_submitted"]
 [connection signal="file_selected" from="Node2D/FileDialog" to="Node2D" method="_on_file_dialog_file_selected"]
 [connection signal="pressed" from="Node2D/Button" to="Node2D" method="_on_button_pressed"]
+
+[editable path="CenterContainer/TextInput"]
