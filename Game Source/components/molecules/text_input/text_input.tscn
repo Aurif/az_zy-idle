@@ -36,8 +36,8 @@ script = ExtResource("3_tgtyo")
 visibility_layer = 7
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/margin_left = 31
-theme_override_constants/margin_right = 31
+theme_override_constants/margin_left = 27
+theme_override_constants/margin_right = 27
 
 [node name="LineEdit" type="LineEdit" parent="MarginContainer"]
 modulate = Color(0.541176, 0.501961, 0.501961, 1)

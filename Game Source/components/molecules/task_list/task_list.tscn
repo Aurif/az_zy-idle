@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://owwdcpqpu0dw"]
+
+[ext_resource type="Script" path="res://components/molecules/task_list/task_list.gd" id="1_ajwgf"]
+[ext_resource type="PackedScene" uid="uid://k7ubk0eqt7fn" path="res://components/molecules/task_item/task_item.tscn" id="2_2cuwe"]
+
+[node name="TaskList" type="VBoxContainer" node_paths=PackedStringArray("input_field")]
+visibility_layer = 6
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 121.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+script = ExtResource("1_ajwgf")
+task_prefab = ExtResource("2_2cuwe")
+input_field = NodePath("")
+
+[node name="FlowContainer" type="FlowContainer" parent="."]
+visibility_layer = 6
+layout_mode = 2
+alignment = 1
+last_wrap_alignment = 2
+
+[node name="TaskItem" parent="FlowContainer" instance=ExtResource("2_2cuwe")]
+layout_mode = 2

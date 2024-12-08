@@ -1,13 +1,14 @@
-[gd_scene load_steps=15 format=3 uid="uid://d1ohnll5k3vde"]
+[gd_scene load_steps=16 format=3 uid="uid://d1ohnll5k3vde"]
 
 [ext_resource type="PackedScene" uid="uid://djs0fotgv4q7p" path="res://components/global/background.tscn" id="1_bflx7"]
 [ext_resource type="Material" uid="uid://ty0e66eulwk2" path="res://shaders/palette/shader.tres" id="1_rta6o"]
 [ext_resource type="PackedScene" uid="uid://b6lunocq0niar" path="res://components/molecules/text_input/text_input.tscn" id="2_v7gts"]
-[ext_resource type="PackedScene" uid="uid://k7ubk0eqt7fn" path="res://components/molecules/task_item/task_item.tscn" id="3_cawdn"]
+[ext_resource type="Texture2D" uid="uid://sidv7py3ebas" path="res://art/shapes/u-triangle.png" id="3_7o0eq"]
 [ext_resource type="Shader" path="res://shaders/neuro/neuro.gdshader" id="3_e6iul"]
-[ext_resource type="Script" path="res://components/molecules/task_list/task_list.gd" id="3_pjjlw"]
+[ext_resource type="Script" path="res://components/molecules/vsplit/vsplit.gd" id="3_ncve3"]
 [ext_resource type="Script" path="res://shaders/_common/viewport.gd" id="4_4g1lp"]
 [ext_resource type="Script" path="res://file_management/file_loader.gd" id="5_61bhp"]
+[ext_resource type="PackedScene" uid="uid://owwdcpqpu0dw" path="res://components/molecules/task_list/task_list.tscn" id="7_n4cgt"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ououm"]
 viewport_path = NodePath("Shaders/Color/Viewport-L2")
@@ -49,40 +50,72 @@ metadata/_edit_lock_ = true
 [node name="Background" parent="." instance=ExtResource("1_bflx7")]
 layout_mode = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 visibility_layer = 7
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = 32.0
-offset_bottom = 96.0
+offset_top = 31.0
+offset_bottom = 113.0
 grow_horizontal = 2
+alignment = 1
 
-[node name="TextInput" parent="CenterContainer" instance=ExtResource("2_v7gts")]
+[node name="TaskInput" parent="HBoxContainer" instance=ExtResource("2_v7gts")]
 layout_mode = 2
 
-[node name="TaskList" type="VBoxContainer" parent="." node_paths=PackedStringArray("input_field")]
-visibility_layer = 6
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+visibility_layer = 7
+layout_mode = 2
+theme_override_constants/margin_left = -18
+theme_override_constants/margin_top = 18
+
+[node name="SubtaskInput" parent="HBoxContainer/MarginContainer" instance=ExtResource("2_v7gts")]
+layout_mode = 2
+
+[node name="BackgroundIndent" parent="HBoxContainer/MarginContainer/SubtaskInput" index="0"]
+texture = ExtResource("3_7o0eq")
+
+[node name="BackgroundColor" parent="HBoxContainer/MarginContainer/SubtaskInput" index="1"]
+texture = ExtResource("3_7o0eq")
+
+[node name="VSplitContainer" type="VSplitContainer" parent="."]
+visibility_layer = 7
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 121.0
+offset_top = 128.0
 grow_horizontal = 2
 grow_vertical = 2
-alignment = 1
-script = ExtResource("3_pjjlw")
-task_prefab = ExtResource("3_cawdn")
-input_field = NodePath("../CenterContainer/TextInput/MarginContainer/LineEdit")
+split_offset = 476
+script = ExtResource("3_ncve3")
 
-[node name="FlowContainer" type="FlowContainer" parent="TaskList"]
-visibility_layer = 6
+[node name="TaskList" parent="VSplitContainer" node_paths=PackedStringArray("input_field") instance=ExtResource("7_n4cgt")]
 layout_mode = 2
-alignment = 1
-last_wrap_alignment = 2
+input_field = NodePath("../../HBoxContainer/TaskInput/MarginContainer/LineEdit")
+file_sector = "tasks"
 
-[node name="TaskItem" parent="TaskList/FlowContainer" instance=ExtResource("3_cawdn")]
+[node name="MarginContainer" type="MarginContainer" parent="VSplitContainer"]
+visibility_layer = 7
 layout_mode = 2
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_bottom = 32
+
+[node name="MarginContainer" type="MarginContainer" parent="VSplitContainer/MarginContainer"]
+visibility_layer = 7
+layout_mode = 2
+theme_override_constants/margin_top = -16
+theme_override_constants/margin_bottom = -16
+
+[node name="ColorRect" type="ColorRect" parent="VSplitContainer/MarginContainer/MarginContainer"]
+visibility_layer = 4
+layout_mode = 2
+color = Color(0.25098, 0.25098, 0.25098, 1)
+
+[node name="SubtaskList" parent="VSplitContainer/MarginContainer" node_paths=PackedStringArray("input_field") instance=ExtResource("7_n4cgt")]
+layout_mode = 2
+input_field = NodePath("../../../HBoxContainer/MarginContainer/SubtaskInput/MarginContainer/LineEdit")
+file_sector = "subtasks"
 
 [node name="Shaders" type="Control" parent="."]
 layout_mode = 1
@@ -109,7 +142,7 @@ metadata/_edit_lock_ = true
 disable_3d = true
 handle_input_locally = false
 canvas_cull_mask = 4293918722
-size = Vector2i(2560, 1440)
+size = Vector2i(1080, 1080)
 render_target_update_mode = 3
 script = ExtResource("4_4g1lp")
 
@@ -129,7 +162,7 @@ metadata/_edit_lock_ = true
 disable_3d = true
 handle_input_locally = false
 canvas_cull_mask = 4293918721
-size = Vector2i(2560, 1440)
+size = Vector2i(1080, 1080)
 render_target_update_mode = 3
 script = ExtResource("4_4g1lp")
 
@@ -150,7 +183,7 @@ transparent_bg = true
 handle_input_locally = false
 debug_draw = 1
 canvas_cull_mask = 4293918724
-size = Vector2i(2560, 1440)
+size = Vector2i(1080, 1080)
 render_target_update_mode = 3
 script = ExtResource("4_4g1lp")
 
@@ -195,8 +228,12 @@ offset_top = -374.0
 offset_right = 1922.0
 offset_bottom = -323.0
 
-[connection signal="text_submitted" from="CenterContainer/TextInput/MarginContainer/LineEdit" to="TaskList" method="_on_text_submitted"]
+[connection signal="text_submitted" from="HBoxContainer/TaskInput/MarginContainer/LineEdit" to="VSplitContainer/TaskList" method="_on_text_submitted"]
+[connection signal="text_submitted" from="HBoxContainer/MarginContainer/SubtaskInput/MarginContainer/LineEdit" to="VSplitContainer/MarginContainer/SubtaskList" method="_on_text_submitted"]
+[connection signal="dragged" from="VSplitContainer" to="VSplitContainer" method="_on_dragged"]
+[connection signal="resized" from="VSplitContainer" to="VSplitContainer" method="_on_resized"]
 [connection signal="file_selected" from="Node2D/FileDialog" to="Node2D" method="_on_file_dialog_file_selected"]
 [connection signal="pressed" from="Node2D/Button" to="Node2D" method="_on_button_pressed"]
 
-[editable path="CenterContainer/TextInput"]
+[editable path="HBoxContainer/TaskInput"]
+[editable path="HBoxContainer/MarginContainer/SubtaskInput"]

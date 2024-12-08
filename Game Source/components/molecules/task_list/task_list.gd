@@ -2,9 +2,9 @@ extends VBoxContainer
 
 @export var task_prefab: PackedScene
 @export var input_field: LineEdit
+@export var file_sector: String
 
 var tasks: Array[String] = []
-const SAVE_FILE_PATH: String = "res://tasks.idle"
 
 func _ready() -> void:
 	load_tasks()
@@ -36,12 +36,12 @@ func _on_task_remove(event: InputEvent, task_index: int) -> void:
 		render()
 	
 func save_tasks() -> void:
-	var file = FileAccess.open(SAVE_FILE_PATH, FileAccess.WRITE)
+	var file = FileAccess.open("res://"+file_sector+".idle", FileAccess.WRITE)
 	file.store_var(tasks)
 	file.close()
 
 func load_tasks() -> void:
-	var file = FileAccess.open(SAVE_FILE_PATH, FileAccess.READ)
+	var file = FileAccess.open("res://"+file_sector+".idle", FileAccess.READ)
 	if file != null:
 		tasks = file.get_var()
 		file.close()
