@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccv2banxc6h4f"]
+
+[ext_resource type="Script" path="res://components/atoms/data/data__delete_dbl_click.gd" id="1_7yi6f"]
+
+[node name="Data__DeleteDblClick" type="Node"]
+script = ExtResource("1_7yi6f")

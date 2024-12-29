@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b6lunocq0niar"]
+[gd_scene load_steps=5 format=3 uid="uid://b6lunocq0niar"]
 
 [ext_resource type="Theme" uid="uid://b5yk5kdygure2" path="res://art/theme.tres" id="1_1gm0b"]
 [ext_resource type="Texture2D" uid="uid://qo8p8qd1ix4y" path="res://art/shapes/triangle.png" id="2_cdgke"]
 [ext_resource type="Script" path="res://components/molecules/text_input/background_color.gd" id="3_tgtyo"]
+[ext_resource type="PackedScene" uid="uid://dgkfx8j6tmlev" path="res://components/atoms/data/data__adder.tscn" id="4_dq512"]
 
 [node name="TextInput" type="PanelContainer"]
 visibility_layer = 7
@@ -51,6 +52,8 @@ alignment = 1
 expand_to_text_length = true
 flat = true
 caret_blink = true
+
+[node name="Data__Adder" parent="MarginContainer/LineEdit" instance=ExtResource("4_dq512")]
 
 [connection signal="mouse_entered" from="BackgroundColor" to="BackgroundColor" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="BackgroundColor" to="BackgroundColor" method="_on_mouse_exited"]

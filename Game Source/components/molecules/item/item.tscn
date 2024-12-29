@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://ed8nmru0fnny"]
+
+[ext_resource type="Script" path="res://components/molecules/item/item.gd" id="1_udkh3"]
+[ext_resource type="PackedScene" uid="uid://ccv2banxc6h4f" path="res://components/atoms/data/data__delete_dbl_click.tscn" id="2_4ropj"]
+
+[node name="Item" type="Label"]
+modulate = Color(0.752941, 0.690196, 1, 1)
+visibility_layer = 6
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+text = "UwU"
+horizontal_alignment = 1
+autowrap_mode = 2
+script = ExtResource("1_udkh3")
+
+[node name="Data__DeleteDblClick" parent="." instance=ExtResource("2_4ropj")]

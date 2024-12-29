@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgkfx8j6tmlev"]
+
+[ext_resource type="Script" path="res://components/atoms/data/data__adder.gd" id="1_agskn"]
+
+[node name="Data__Adder" type="Node"]
+script = ExtResource("1_agskn")

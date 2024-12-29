@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://colgduao0263p"]
+
+[ext_resource type="Script" path="res://components/atoms/data/data__spawner_item.gd" id="1_cep4g"]
+
+[node name="Data__SpawnerItem" type="Control"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_cep4g")

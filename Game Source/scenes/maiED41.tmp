@@ -3,14 +3,14 @@
 [ext_resource type="Script" path="res://components/atoms/data/data_manager.gd" id="1_3rec5"]
 [ext_resource type="PackedScene" uid="uid://djs0fotgv4q7p" path="res://components/molecules/background/background.tscn" id="1_bflx7"]
 [ext_resource type="Material" uid="uid://ty0e66eulwk2" path="res://shaders/palette/shader.tres" id="1_rta6o"]
+[ext_resource type="Script" path="res://components/atoms/data/data__adder.gd" id="2_n427s"]
 [ext_resource type="PackedScene" uid="uid://b6lunocq0niar" path="res://components/molecules/text_input/text_input.tscn" id="2_v7gts"]
 [ext_resource type="Texture2D" uid="uid://sidv7py3ebas" path="res://art/shapes/u-triangle.png" id="3_7o0eq"]
 [ext_resource type="Shader" path="res://shaders/neuro/neuro.gdshader" id="3_e6iul"]
+[ext_resource type="Script" path="res://components/molecules/vsplit/vsplit.gd" id="3_ncve3"]
 [ext_resource type="Script" path="res://shaders/_common/viewport.gd" id="4_4g1lp"]
 [ext_resource type="Script" path="res://file_management/file_loader.gd" id="5_61bhp"]
-[ext_resource type="Texture2D" uid="uid://dxb6wr1r452am" path="res://art/white.png" id="7_eopds"]
-[ext_resource type="PackedScene" uid="uid://colgduao0263p" path="res://components/atoms/data/data__spawner_item.tscn" id="8_ha68k"]
-[ext_resource type="PackedScene" uid="uid://ed8nmru0fnny" path="res://components/molecules/item/item.tscn" id="9_1g56u"]
+[ext_resource type="PackedScene" uid="uid://owwdcpqpu0dw" path="res://components/molecules/task_list/task_list.tscn" id="7_n4cgt"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ououm"]
 viewport_path = NodePath("Shaders/Color/Viewport-L2")
@@ -52,145 +52,78 @@ metadata/_edit_lock_ = true
 [node name="DataManager" type="Node" parent="."]
 script = ExtResource("1_3rec5")
 
+[node name="Data__Adder" type="Node" parent="."]
+script = ExtResource("2_n427s")
+
 [node name="Background" parent="." instance=ExtResource("1_bflx7")]
 layout_mode = 1
 
-[node name="TaskBar" type="Control" parent="."]
-visibility_layer = 7
-layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -511.0
-offset_right = -82.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="Background" parent="TaskBar" instance=ExtResource("1_bflx7")]
-layout_mode = 1
-top_left_color = 96
-bottom_right_color = 64
-
-[node name="BackgroundElevation" type="TextureRect" parent="TaskBar"]
-modulate = Color(0.627451, 0.627451, 0.627451, 1)
-visibility_layer = 4
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("7_eopds")
-
-[node name="HeaderElevation" type="TextureRect" parent="TaskBar"]
-modulate = Color(0.768627, 0.768627, 0.768627, 1)
-visibility_layer = 4
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 118.0
-grow_horizontal = 2
-texture = ExtResource("7_eopds")
-
-[node name="HeaderInputs" type="HBoxContainer" parent="TaskBar"]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 visibility_layer = 7
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = 16.0
-offset_bottom = 98.0
+offset_top = 31.0
+offset_bottom = 113.0
 grow_horizontal = 2
 alignment = 1
 
-[node name="TaskInput" parent="TaskBar/HeaderInputs" instance=ExtResource("2_v7gts")]
+[node name="TaskInput" parent="HBoxContainer" instance=ExtResource("2_v7gts")]
 layout_mode = 2
 
-[node name="Data__Adder" parent="TaskBar/HeaderInputs/TaskInput/MarginContainer/LineEdit" index="0"]
-tags = {
-"category/urgent": true
-}
-
-[node name="MarginContainer" type="MarginContainer" parent="TaskBar/HeaderInputs"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
 visibility_layer = 7
 layout_mode = 2
 theme_override_constants/margin_left = -18
 theme_override_constants/margin_top = 18
 
-[node name="SubtaskInput" parent="TaskBar/HeaderInputs/MarginContainer" instance=ExtResource("2_v7gts")]
+[node name="SubtaskInput" parent="HBoxContainer/MarginContainer" instance=ExtResource("2_v7gts")]
 layout_mode = 2
 
-[node name="BackgroundIndent" parent="TaskBar/HeaderInputs/MarginContainer/SubtaskInput" index="0"]
+[node name="BackgroundIndent" parent="HBoxContainer/MarginContainer/SubtaskInput" index="0"]
 texture = ExtResource("3_7o0eq")
 
-[node name="BackgroundColor" parent="TaskBar/HeaderInputs/MarginContainer/SubtaskInput" index="1"]
+[node name="BackgroundColor" parent="HBoxContainer/MarginContainer/SubtaskInput" index="1"]
 texture = ExtResource("3_7o0eq")
 
-[node name="Data__Adder" parent="TaskBar/HeaderInputs/MarginContainer/SubtaskInput/MarginContainer/LineEdit" index="0"]
-tags = {
-"category/non_urgent": true
-}
-
-[node name="ScrollContainer" type="ScrollContainer" parent="TaskBar"]
+[node name="VSplitContainer" type="VSplitContainer" parent="."]
 visibility_layer = 7
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 119.0
+offset_top = 128.0
 grow_horizontal = 2
 grow_vertical = 2
-horizontal_scroll_mode = 0
+split_offset = 476
+script = ExtResource("3_ncve3")
 
-[node name="List" type="VBoxContainer" parent="TaskBar/ScrollContainer"]
+[node name="TaskList" parent="VSplitContainer" node_paths=PackedStringArray("input_field") instance=ExtResource("7_n4cgt")]
+layout_mode = 2
+input_field = NodePath("../../HBoxContainer/TaskInput/MarginContainer/LineEdit")
+file_sector = "tasks"
+
+[node name="MarginContainer" type="MarginContainer" parent="VSplitContainer"]
 visibility_layer = 7
 layout_mode = 2
-size_flags_horizontal = 3
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_bottom = 32
 
-[node name="Spacer" type="Control" parent="TaskBar/ScrollContainer/List"]
-custom_minimum_size = Vector2(0, 4)
-layout_mode = 2
-
-[node name="Data__SpawnerItem" parent="TaskBar/ScrollContainer/List" instance=ExtResource("8_ha68k")]
+[node name="MarginContainer" type="MarginContainer" parent="VSplitContainer/MarginContainer"]
 visibility_layer = 7
 layout_mode = 2
-filters = {
-"category/urgent": true
-}
+theme_override_constants/margin_top = -16
+theme_override_constants/margin_bottom = -16
 
-[node name="Item" parent="TaskBar/ScrollContainer/List/Data__SpawnerItem" instance=ExtResource("9_1g56u")]
-layout_mode = 0
-anchors_preset = 0
-
-[node name="Separator" type="MarginContainer" parent="TaskBar/ScrollContainer/List"]
-visibility_layer = 7
-layout_mode = 2
-theme_override_constants/margin_left = 24
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 24
-
-[node name="Elevation" type="TextureRect" parent="TaskBar/ScrollContainer/List/Separator"]
-modulate = Color(0.501961, 0.501961, 0.501961, 1)
+[node name="ColorRect" type="ColorRect" parent="VSplitContainer/MarginContainer/MarginContainer"]
 visibility_layer = 4
-custom_minimum_size = Vector2(0, 6)
 layout_mode = 2
-texture = ExtResource("7_eopds")
-expand_mode = 1
+color = Color(0.25098, 0.25098, 0.25098, 1)
 
-[node name="Data__SpawnerItem2" parent="TaskBar/ScrollContainer/List" instance=ExtResource("8_ha68k")]
-visibility_layer = 7
+[node name="SubtaskList" parent="VSplitContainer/MarginContainer" node_paths=PackedStringArray("input_field") instance=ExtResource("7_n4cgt")]
 layout_mode = 2
-filters = {
-"category/non_urgent": true
-}
-
-[node name="Item" parent="TaskBar/ScrollContainer/List/Data__SpawnerItem2" instance=ExtResource("9_1g56u")]
-layout_mode = 0
-anchors_preset = 0
-
-[node name="Spacer2" type="Control" parent="TaskBar/ScrollContainer/List"]
-custom_minimum_size = Vector2(0, 4)
-layout_mode = 2
+input_field = NodePath("../../../HBoxContainer/MarginContainer/SubtaskInput/MarginContainer/LineEdit")
+file_sector = "subtasks"
 
 [node name="Shaders" type="Control" parent="."]
 layout_mode = 1
@@ -277,7 +210,6 @@ stretch_mode = 3
 metadata/_edit_lock_ = true
 
 [node name="Node2D" type="Node2D" parent="."]
-visible = false
 visibility_layer = 7
 position = Vector2(636, 373)
 script = ExtResource("5_61bhp")
@@ -304,8 +236,12 @@ offset_top = -374.0
 offset_right = 1922.0
 offset_bottom = -323.0
 
+[connection signal="text_submitted" from="HBoxContainer/TaskInput/MarginContainer/LineEdit" to="VSplitContainer/TaskList" method="_on_text_submitted"]
+[connection signal="text_submitted" from="HBoxContainer/MarginContainer/SubtaskInput/MarginContainer/LineEdit" to="VSplitContainer/MarginContainer/SubtaskList" method="_on_text_submitted"]
+[connection signal="dragged" from="VSplitContainer" to="VSplitContainer" method="_on_dragged"]
+[connection signal="resized" from="VSplitContainer" to="VSplitContainer" method="_on_resized"]
 [connection signal="file_selected" from="Node2D/FileDialog" to="Node2D" method="_on_file_dialog_file_selected"]
 [connection signal="pressed" from="Node2D/Button" to="Node2D" method="_on_button_pressed"]
 
-[editable path="TaskBar/HeaderInputs/TaskInput"]
-[editable path="TaskBar/HeaderInputs/MarginContainer/SubtaskInput"]
+[editable path="HBoxContainer/TaskInput"]
+[editable path="HBoxContainer/MarginContainer/SubtaskInput"]

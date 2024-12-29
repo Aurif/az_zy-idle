@@ -1,4 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://djs0fotgv4q7p"]
+[gd_scene load_steps=6 format=3 uid="uid://djs0fotgv4q7p"]
+
+[ext_resource type="Script" path="res://components/molecules/background/background.gd" id="1_336cf"]
 
 [sub_resource type="Gradient" id="Gradient_e7cc0"]
 interpolation_mode = 2
@@ -25,6 +27,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_336cf")
 metadata/_edit_lock_ = true
 
 [node name="VerticalGradient" type="TextureRect" parent="."]

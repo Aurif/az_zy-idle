@@ -1,6 +1,6 @@
-[gd_scene load_steps=30 format=3 uid="uid://vhf68adwj544"]
+[gd_scene load_steps=31 format=3 uid="uid://vhf68adwj544"]
 
-[ext_resource type="PackedScene" uid="uid://djs0fotgv4q7p" path="res://components/global/background.tscn" id="1_mb2ux"]
+[ext_resource type="PackedScene" uid="uid://djs0fotgv4q7p" path="res://components/molecules/background/background.tscn" id="1_mb2ux"]
 [ext_resource type="Script" path="res://shaders/_common/viewport.gd" id="2_kk5a7"]
 [ext_resource type="Material" uid="uid://ty0e66eulwk2" path="res://shaders/palette/shader.tres" id="3_eh4b4"]
 [ext_resource type="Shader" path="res://shaders/neuro/neuro.gdshader" id="4_ij8q2"]
@@ -26,7 +26,12 @@ colors = PackedColorArray(0.878431, 0.878431, 0.878431, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ab83x"]
 gradient = SubResource("Gradient_28h7a")
 
+[sub_resource type="Gradient" id="Gradient_r6uma"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_beekr"]
+gradient = SubResource("Gradient_r6uma")
 
 [sub_resource type="Gradient" id="Gradient_bkdik"]
 offsets = PackedFloat32Array(0)
@@ -213,7 +218,7 @@ metadata/_edit_lock_ = true
 [node name="Viewport-L2" type="SubViewport" parent="Shaders/Color"]
 disable_3d = true
 canvas_cull_mask = 4293918722
-size = Vector2i(2560, 1440)
+size = Vector2i(1080, 1080)
 render_target_update_mode = 3
 script = ExtResource("2_kk5a7")
 
@@ -231,7 +236,7 @@ metadata/_edit_lock_ = true
 [node name="Viewport-L1" type="SubViewport" parent="Shaders"]
 disable_3d = true
 canvas_cull_mask = 4293918721
-size = Vector2i(2560, 1440)
+size = Vector2i(1080, 1080)
 render_target_update_mode = 3
 script = ExtResource("2_kk5a7")
 
@@ -250,7 +255,7 @@ disable_3d = true
 transparent_bg = true
 debug_draw = 1
 canvas_cull_mask = 4293918724
-size = Vector2i(2560, 1440)
+size = Vector2i(1080, 1080)
 render_target_update_mode = 3
 script = ExtResource("2_kk5a7")
 
