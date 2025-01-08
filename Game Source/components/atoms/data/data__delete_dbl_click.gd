@@ -9,4 +9,5 @@ func _on_gui_input(event: InputEvent) -> void:
 		delete_item()
 
 func delete_item() -> void:
-	get_manager().remove_item((get_parent() as HookDataItem).item_uuid)
+	var parent = get_parent() as HookDataItem
+	get_manager().remove_item(parent.item_key, parent.item_uuid)

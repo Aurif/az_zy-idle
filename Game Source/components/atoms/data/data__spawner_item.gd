@@ -1,6 +1,7 @@
 extends AtomData
 
 @export var filters: Dictionary = {}
+@export var key: String
 
 var spawned_nodes: Array[Node] = []
 var prefab = PackedScene.new()
@@ -8,7 +9,7 @@ var prefab = PackedScene.new()
 func _ready() -> void:
 	prepare_prefab()
 	self.visible = false
-	get_manager().connect_watcher(_hook_data_changed)
+	get_manager().connect_watcher(key, _hook_data_changed)
 
 func prepare_prefab() -> void:
 	recurse_prefab(get_child(0))
@@ -42,4 +43,4 @@ func add_item(uuid: String) -> void:
 	var instance: HookDataItem = prefab.instantiate()
 	spawned_nodes.append(instance)
 	add_sibling(instance)
-	instance.__init_item(uuid)
+	instance.__init_item(key, uuid)

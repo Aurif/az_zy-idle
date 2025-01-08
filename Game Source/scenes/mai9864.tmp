@@ -159,7 +159,6 @@ layout_mode = 2
 filters = {
 "category/urgent": true
 }
-key = "item"
 
 [node name="Item" parent="TaskBar/ScrollContainer/List/Data__SpawnerItem" instance=ExtResource("9_1g56u")]
 layout_mode = 1

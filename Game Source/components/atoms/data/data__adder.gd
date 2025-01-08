@@ -1,6 +1,7 @@
 extends AtomData
 
 @export var tags: Dictionary = {}
+@export var key: String
 
 func _ready() -> void:
 	if get_parent().get_class() == "LineEdit":
@@ -11,5 +12,5 @@ func _hook_line_edit(content: String) -> void:
 		return
 	var item = { "content": content }
 	item.merge(tags)
-	get_manager().add_item(item)
+	get_manager().add_item(key, item)
 	get_parent().text = ""

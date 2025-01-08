@@ -34,20 +34,25 @@ static func uuid_v4():
 #
 # Operators
 #
-func get_item(uuid: String) -> Dictionary:
-	return data[uuid]
+func get_item(key: String, uuid: String) -> Dictionary:
+	return data[key][uuid]
 
-func add_item(item: Dictionary) -> void:
-	data[uuid_v4()] = item
+func add_item(key: String, item: Dictionary) -> void:
+	if not data.has(key):
+		data[key] = {}
+	data[key][uuid_v4()] = item
 	trigger_update()
 
-func remove_item(uuid: String) -> void:
-	data.erase(uuid)
+func remove_item(key: String, uuid: String) -> void:
+	data[key].erase(uuid)
 	trigger_update()
 
-func connect_watcher(callback: Callable) -> void:
-	data_changed.connect(callback)
-	callback.call_deferred(data)
+func connect_watcher(key: String, callback: Callable) -> void:
+	if not update_signals.has(key):
+		self.add_user_signal("key_"+key)
+		update_signals[key] = Signal(self, "key_"+key)
+	update_signals[key].connect(callback)
+	callback.call_deferred(data.get(key, {}))
 
 # 
 # Loading state
@@ -64,11 +69,12 @@ func load_tasks() -> void:
 #
 # Data updates
 #	
-signal data_changed(data)
+var update_signals = {}
 
 func trigger_update() -> void:
 	save_tasks()
-	data_changed.emit(data)
+	for key in update_signals:
+		update_signals[key].emit(data.get(key, {}))
 
 func save_tasks() -> void:
 	var file = FileAccess.open(filepath, FileAccess.WRITE)
