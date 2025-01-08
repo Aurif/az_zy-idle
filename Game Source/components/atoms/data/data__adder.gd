@@ -6,6 +6,8 @@ extends AtomData
 func _ready() -> void:
 	if get_parent().get_class() == "LineEdit":
 		get_parent().connect("text_submitted", _hook_line_edit)
+	if get_parent().get_class() == "Button":
+		get_parent().connect("pressed", _hook_button)
 
 func _hook_line_edit(content: String) -> void:
 	if content == "":
@@ -14,3 +16,6 @@ func _hook_line_edit(content: String) -> void:
 	item.merge(tags)
 	get_manager().add_item(key, item)
 	get_parent().text = ""
+
+func _hook_button() -> void:
+	get_manager().add_item(key, tags)

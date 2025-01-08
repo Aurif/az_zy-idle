@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://d1ohnll5k3vde"]
+[gd_scene load_steps=22 format=3 uid="uid://d1ohnll5k3vde"]
 
 [ext_resource type="Script" path="res://components/atoms/data/data_manager.gd" id="1_3rec5"]
 [ext_resource type="PackedScene" uid="uid://djs0fotgv4q7p" path="res://components/molecules/background/background.tscn" id="1_bflx7"]
@@ -9,8 +9,14 @@
 [ext_resource type="Script" path="res://shaders/_common/viewport.gd" id="4_4g1lp"]
 [ext_resource type="Script" path="res://file_management/file_loader.gd" id="5_61bhp"]
 [ext_resource type="Texture2D" uid="uid://dxb6wr1r452am" path="res://art/white.png" id="7_eopds"]
+[ext_resource type="Theme" uid="uid://b5yk5kdygure2" path="res://art/theme.tres" id="8_h22g3"]
 [ext_resource type="PackedScene" uid="uid://colgduao0263p" path="res://components/atoms/data/data__spawner_item.tscn" id="8_ha68k"]
 [ext_resource type="PackedScene" uid="uid://ed8nmru0fnny" path="res://components/molecules/item/item.tscn" id="9_1g56u"]
+[ext_resource type="PackedScene" uid="uid://dgkfx8j6tmlev" path="res://components/atoms/data/data__adder.tscn" id="9_eaive"]
+[ext_resource type="Script" path="res://components/atoms/data/data__hook_item.gd" id="10_kjkm1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0vdva"]
+bg_color = Color(0.376471, 0.25098, 0.6, 0.188235)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ououm"]
 viewport_path = NodePath("Shaders/Color/Viewport-L2")
@@ -140,6 +146,7 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 119.0
+offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 2
 horizontal_scroll_mode = 0
@@ -205,6 +212,66 @@ grow_vertical = 2
 [node name="Spacer2" type="Control" parent="TaskBar/ScrollContainer/List"]
 custom_minimum_size = Vector2(0, 4)
 layout_mode = 2
+
+[node name="ListToggling" type="Control" parent="TaskBar"]
+visibility_layer = 7
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="NewSublist" type="Button" parent="TaskBar/ListToggling"]
+visibility_layer = 6
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 8.0
+grow_vertical = 2
+theme = ExtResource("8_h22g3")
+theme_override_styles/normal = SubResource("StyleBoxFlat_0vdva")
+
+[node name="Data__Adder" parent="TaskBar/ListToggling/NewSublist" instance=ExtResource("9_eaive")]
+key = "sublist"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TaskBar/ListToggling"]
+visibility_layer = 7
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Data__SpawnerItem" parent="TaskBar/ListToggling/HBoxContainer" instance=ExtResource("8_ha68k")]
+layout_mode = 2
+key = "sublist"
+
+[node name="MarginContainer" type="MarginContainer" parent="TaskBar/ListToggling/HBoxContainer/Data__SpawnerItem"]
+visibility_layer = 7
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_right = 4
+script = ExtResource("10_kjkm1")
+
+[node name="Button" type="Button" parent="TaskBar/ListToggling/HBoxContainer/Data__SpawnerItem/MarginContainer"]
+visibility_layer = 6
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("8_h22g3")
+toggle_mode = true
 
 [node name="Shaders" type="Control" parent="."]
 layout_mode = 1
